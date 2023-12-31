@@ -4,7 +4,7 @@
 unless User.exists?(email: 'admin@pampers.pk')
     # Create an admin user
     admin_user = User.create!(
-      email: 'example@gmail.com',
+      email: 'admin@pampers.pk',
       password: '12345678',
     )
   
