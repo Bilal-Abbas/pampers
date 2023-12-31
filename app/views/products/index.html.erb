@@ -1,0 +1,39 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col mt-4">
+      <div class="d-flex justify-content-end mb-3">
+        <%= link_to "New product", new_product_path, class: 'btn btn-primary' %>
+      </div>
+      <div class="table-responsive">
+        <table class="table product-table">
+          <thead class="bg-primary text-white">
+            <tr>
+              <th>Product Code</th>
+              <th>Name</th>
+              <th>Quantity</th>
+              <th>Unit Price</th>
+              <th>Description</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% # Loop through your products and display each row in the table %>
+            <% @products.each do |product| %>
+              <tr>
+                <td><%= product.code %></td>
+                <td><%= product.name %></td>
+                <td><%= product.quantity %></td>
+                <td><%= product.unit_price %></td>
+                <td><%= product.description %></td>
+                <td>
+                  <%= link_to 'Edit', edit_product_path(product), class: 'btn btn-warning btn-sm' %>
+                  <%= link_to 'Delete', product_path(product), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-sm' %>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

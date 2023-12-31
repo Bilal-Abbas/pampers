@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Pampers</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+  </head>
+
+  <body>
+    <div class="container">
+      <% if current_user %>
+        <%= render partial: "shared/header" %>
+        <div class="text-center mt-4"> <!-- Add margin-top for padding -->
+          <h1>Pampers Accounts</h1>
+        </div>
+        <%= render partial: "shared/tabs" %>
+      <% end %>
+      <% if alert %>
+        <p class="alert"><%= alert %>
+      <% end %>
+      <%= yield %>
+    </div>
+  </body>
+</html>
+

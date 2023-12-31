@@ -1,0 +1,57 @@
+.navbar{
+    #navbarNav{
+        justify-content: end;
+    }
+}
+
+/* Add this to your SCSS file */
+
+.nav-tabs {
+    border-bottom: 1px solid #ddd;
+
+    /* Add a border at the bottom of the tabs */
+    .nav-item {
+        position: relative;
+        /* Make the position of the tab relative */
+        width: 20%;
+        /* Set the width to 20% for equal-width tabs */
+    }
+
+    .separator {
+        position: absolute;
+        top: 50%;
+        right: 0;
+        height: 50%;
+        width: 1px;
+        background-color: #ddd;
+        /* Color of the separator */
+        transform: translateY(-50%);
+        /* Center the separator vertically */
+    }
+
+    .nav-link.active {
+        background: yellowgreen !important;
+    }
+
+    .nav-link {
+        background: darkgray;
+        color: #e0e0e0 !important;
+        width: 100%;
+        text-align: center;
+        font-weight: bolder;
+    }
+
+    .nav-link:hover {
+        background-color:darkgray;
+    }
+}
+
+.table{
+    border: sold 1px #007bff !important;
+    th{
+        background-color: #007bff !important;
+        color: #e0e0e0 !important;
+        border-width: 2px;
+        border-style: solid;
+    }
+}

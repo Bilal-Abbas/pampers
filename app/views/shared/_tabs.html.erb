@@ -1,0 +1,23 @@
+<ul class="nav nav-tabs">
+  <li class="nav-item">
+    <%= link_to "Inventory", products_path, class: "nav-link #{'active' if controller_name == 'products'}" %>
+    <div class="separator"></div>
+  </li>
+  <li class="nav-item">
+    <%= link_to "Expenses", expenses_path, class: "nav-link #{'active' if controller_name == 'expenses'}" %>
+    <div class="separator"></div>
+  </li>
+  <li class="nav-item">
+    <%= link_to "Credits", products_path, class: "nav-link #{'active' if controller_name == 'credits'}" %>
+    <div class="separator"></div>
+  </li>
+  <li class="nav-item">
+    <%= link_to "Sales", products_path, class: "nav-link #{'active' if controller_name == 'sales'}" %>
+    <div class="separator"></div>
+  </li>
+  <li class="nav-item">
+    <%= link_to "Profit", products_path, class: "nav-link #{'active' if controller_name == 'profits'}" %>
+  </li>
+</ul>
+
+
