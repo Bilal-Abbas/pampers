@@ -1,0 +1,107 @@
+<div class="container">
+  <%= form_with(model: sale) do |form| %>
+    <% if sale.errors.any? %>
+      <div style="color: red">
+        <h2><%= pluralize(sale.errors.count, "error") %> prohibited this sale from being saved:</h2>
+
+        <ul>
+          <% sale.errors.each do |error| %>
+            <li><%= error.full_message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="row">
+      <div class="col-md-12">
+        <div class="form-group row mb-3">
+          <%= form.label :customer_name, class: "col-md-4 col-form-label text-right" %>
+          <div class="col-md-2">
+            <%= form.text_field :customer_name, class: "form-control" %>
+          </div>
+
+          <%= form.label :contact, class: "col-md-2 col-form-label text-right" %>
+          <div class="col-md-4">
+            <%= form.text_field :contact, class: "form-control" %>
+          </div>
+        </div>
+
+        <div class="form-group row mb-3">
+          <%= form.label :customer_address, class: "col-md-4 col-form-label text-right" %>
+          <div class="col-md-2">
+            <%= form.text_field :customer_address, class: "form-control" %>
+          </div>
+
+          <%= form.label :supplier_name, class: "col-md-2 col-form-label text-right" %>
+          <div class="col-md-4">
+            <%= form.text_field :supplier_name, class: "form-control" %>
+          </div>
+        </div>
+
+        <div class="form-group row mb-3">
+          <%= form.label :order_booker_name, class: "col-md-4 col-form-label text-right" %>
+          <div class="col-md-2">
+            <%= form.text_field :order_booker_name, class: "form-control" %>
+          </div>
+
+          <%= form.label :payment_method, class: "col-md-2 col-form-label text-right" %>
+          <div class="col-md-4">
+            <%= form.select :payment_method, ['cash', 'Bank Transfer', 'Easy Paisa / Jazz cash'], {}, class: "form-control" %>
+          </div>
+        </div>
+
+
+    
+        <% if sale.id.present? %>
+          <div class="row">
+            <div class="col-md-10">
+              <%= render partial: "sale_items", locals: { sales_items: sale.sale_items } %>
+            </div>
+            <div class="col-md-2 mt-4">
+              <%= link_to "Insert sale item", new_sale_item_path(sale_id: sale.id), class: 'btn btn-primary' %>
+            </div>
+          </div>
+        <% end %>
+
+
+
+        <div class="row">
+          <div class="col-md-7">
+            <!-- Existing form fields -->
+          </div>
+          <div class="col-md-5">
+            <div class="form-group row mb-3">
+              <%= form.label :total_amount, class: "col-md-4 col-form-label text-right" %>
+              <div class="col-md-8">
+                <%= form.text_field :total_amount, class: "form-control" %>
+              </div>
+            </div>
+
+            <div class="form-group row mb-3">
+              <%= form.label :total_received, class: "col-md-4 col-form-label text-right" %>
+              <div class="col-md-8">
+                <%= form.text_field :total_received, class: "form-control" %>
+              </div>
+            </div>
+
+            <div class="form-group row mb-3">
+              <%= form.label :credit_amount, class: "col-md-4 col-form-label text-right" %>
+              <div class="col-md-8">
+                <%= form.text_field :credit_amount, class: "form-control", disabled: true %>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <div class="col-md-8 offset-md-2 text-center">
+            <%= form.submit class: "btn btn-primary" %>
+            <%= link_to "Print and update", nil, class: 'btn btn-primary' %>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>
+
+

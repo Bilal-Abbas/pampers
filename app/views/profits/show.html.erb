@@ -1,0 +1,53 @@
+<div class="text-center mt-4">
+  <h2>Profits</h2>
+</div>
+
+<%= form_with(url: sale_profits_path, method: :get) do |form| %>
+  <div class="container mt-4">
+    <div class="row justify-content-around">
+      <div class="col-md-4 mb-3">
+        <%= form.label :start_date, "Start Date:", class: "form-label" %>
+        <%= form.text_field :start_date, class: "form-control", readonly: true, value: params[:start_date] %>
+      </div>
+
+      <div class="col-md-4 mb-3">
+        <%= form.label :end_date, "End Date:", class: "form-label" %>
+        <%= form.text_field :end_date, class: "form-control", readonly: true, value: params[:end_date] %>
+      </div>
+    </div>
+
+    <div class="row justify-content-center">
+        <div class="col-md-6 text-center">
+            <h6>Total Sales</h6>
+            <p><%= @total_sales %></p>
+        </div>
+    </div>
+
+    <div class="row justify-content-center mt-4">
+        <div class="col-md-6 text-center">
+            <h6>Total Profit</h6>
+            <p><%= @total_profit %></p>
+        </div>
+    </div>
+
+    <div class="row justify-content-center mt-4">
+        <div class="col-md-6 text-center">
+            <h6>Total Credit Amount</h6>
+            <p><%= @total_credit_amount %></p>
+        </div>
+    </div>
+
+    <div class="row justify-content-center mt-4">
+        <div class="col-md-6 text-center">
+            <h6>Total In-Hand Amount</h6>
+            <p><%= @total_in_hand_amount %></p>
+        </div>
+    </div>
+
+    <div class="row justify-content-center">
+      <div class="col-md-4 mt-5 text-center">
+        <%= form.submit "View Profits on Sales", class: "btn btn-primary btn-block" %>
+      </div>
+    </div>
+  </div>
+<% end %>

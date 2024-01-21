@@ -1,0 +1,21 @@
+<!-- Add this modal code at the end of your HTML body -->
+<div class="modal fade" id="productModal" tabindex="-1" role="dialog" aria-labelledby="productModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="productModalLabel">Select Product</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <!-- Add your product selection form or content here -->
+        <%= form_with(model: f, url: sale_items_path, remote: true) do |form| %>
+          <%= form.collection_select :product_id, Product.all, :id, :name, { prompt: "Select Product" }, class: "form-control" %>
+          <!-- Add other sale item fields as needed -->
+          <%= form.submit "Add Sale Item", class: "btn btn-primary" %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

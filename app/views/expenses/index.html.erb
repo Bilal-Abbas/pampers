@@ -12,7 +12,9 @@
               <th>Name</th>
               <th>Details</th>
               <th>Amount</th>
-              <th>Actions</th>
+              <th>Date</th>
+              <th></th>
+              <th></th>
             </tr>
           </thead>
           <tbody>
@@ -23,8 +25,11 @@
                 <td><%= expense.name %></td>
                 <td><%= expense.detail%></td>
                 <td><%= expense.amount %></td>
-                <td>
+                <td><%= expense.created_at.strftime("%m/%d/%Y") %></td>
+                <td class="text-center">
                   <%= link_to 'Edit', edit_expense_path(expense), class: 'btn btn-warning btn-sm' %>
+                </td>
+                <td class="text-center">
                   <%= link_to 'Delete', expense_path(expense), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-sm' %>
                 </td>
               </tr>

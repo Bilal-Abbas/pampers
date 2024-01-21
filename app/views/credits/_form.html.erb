@@ -1,0 +1,42 @@
+<%= form_with(model: credit) do |form| %>
+  <% if credit.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(credit.errors.count, "error") %> prohibited this credit from being saved:</h2>
+
+      <ul>
+        <% credit.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :sale_id, style: "display: block" %>
+    <%= form.number_field :sale_id %>
+  </div>
+
+  <div>
+    <%= form.label :customer_name, style: "display: block" %>
+    <%= form.text_field :customer_name %>
+  </div>
+
+  <div>
+    <%= form.label :total_amount, style: "display: block" %>
+    <%= form.text_field :total_amount %>
+  </div>
+
+  <div>
+    <%= form.label :total_received, style: "display: block" %>
+    <%= form.text_field :total_received %>
+  </div>
+
+  <div>
+    <%= form.label :credit_amount, style: "display: block" %>
+    <%= form.text_field :credit_amount %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>

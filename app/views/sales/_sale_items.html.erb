@@ -1,0 +1,33 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col mt-4">
+      <div class="table-responsive">
+        <table class="table product-table">
+          <thead class="bg-primary text-white">
+            <tr>
+              <th>Serial No.</th>
+              <th>Product Name</th>
+              <th>Quantity</th>
+              <th>Per Item Price</th>
+              <th>Discount %</th>
+              <th>Total Amount</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% sales_items.each do |sale_item| %>
+              <tr>
+                <td><%= sale_item.id %></td>
+                <td><%= sale_item.product.id %></td>
+                <td> <%= sale_item.quantity > 0 ? sale_item.quantity : 'Out of stock' %></td>
+                <td><%= sale_item.per_item_price %></td>
+                <td><%= sale_item.discount %></td>
+                <td><%= sale_item.total_amount %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+

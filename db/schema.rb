@@ -10,9 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_12_31_112622) do
+ActiveRecord::Schema[7.1].define(version: 2024_01_13_150537) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "credits", force: :cascade do |t|
+    t.integer "sale_id"
+    t.string "customer_name"
+    t.decimal "total_amount"
+    t.decimal "total_received"
+    t.decimal "credit_amount"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "expenses", force: :cascade do |t|
     t.string "name"
@@ -42,6 +52,33 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_31_112622) do
     t.index ["resource_type", "resource_id"], name: "index_roles_on_resource"
   end
 
+  create_table "sale_items", force: :cascade do |t|
+    t.bigint "sale_id"
+    t.bigint "product_id"
+    t.integer "quantity"
+    t.decimal "per_item_price", precision: 10, scale: 2
+    t.decimal "discount", precision: 10, scale: 2
+    t.decimal "total_amount", precision: 10, scale: 2
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["product_id"], name: "index_sale_items_on_product_id"
+    t.index ["sale_id"], name: "index_sale_items_on_sale_id"
+  end
+
+  create_table "sales", force: :cascade do |t|
+    t.string "customer_name"
+    t.string "contact"
+    t.string "customer_address"
+    t.string "supplier_name"
+    t.string "order_booker_name"
+    t.string "payment_method", default: "cash"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.decimal "total_amount"
+    t.decimal "total_received"
+    t.decimal "credit_amount"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -62,4 +99,6 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_31_112622) do
     t.index ["user_id"], name: "index_users_roles_on_user_id"
   end
 
+  add_foreign_key "sale_items", "products"
+  add_foreign_key "sale_items", "sales"
 end

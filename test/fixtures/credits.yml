@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  sale_id: 1
+  customer_name: MyString
+  total_amount: 9.99
+  total_received: 9.99
+  credit_amount: 9.99
+
+two:
+  sale_id: 1
+  customer_name: MyString
+  total_amount: 9.99
+  total_received: 9.99
+  credit_amount: 9.99

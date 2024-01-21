@@ -7,14 +7,9 @@
 /* Add this to your SCSS file */
 
 .nav-tabs {
-    border-bottom: 1px solid #ddd;
-
-    /* Add a border at the bottom of the tabs */
     .nav-item {
         position: relative;
-        /* Make the position of the tab relative */
         width: 20%;
-        /* Set the width to 20% for equal-width tabs */
     }
 
     .separator {
@@ -30,28 +25,35 @@
     }
 
     .nav-link.active {
-        background: yellowgreen !important;
+        background: #a9d18e !important;
     }
 
     .nav-link {
-        background: darkgray;
-        color: #e0e0e0 !important;
+        background: #afabab;
+        color: #ffffff !important;
         width: 100%;
         text-align: center;
         font-weight: bolder;
+        border-radius: unset !important;
+        font-size: 2vw;
     }
 
     .nav-link:hover {
-        background-color:darkgray;
+        background-color:#afabab;
     }
 }
 
 .table{
-    border: sold 1px #007bff !important;
+    border: solid 1px #5b9bd5 !important;
     th{
-        background-color: #007bff !important;
-        color: #e0e0e0 !important;
+        background-color:#5b9bd5 !important;
+        color: #ffffff !important;
         border-width: 2px;
         border-style: solid;
     }
+}
+
+.btn-primary{
+    background-color: #8faadc !important;
+    border: solid 1px #8faadc !important;
 }

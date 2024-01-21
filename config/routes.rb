@@ -1,14 +1,18 @@
 Rails.application.routes.draw do
+  resources :credits
+  resources :sales do
+    post 'add_products_to_sale', on: :member
+  end
+  resources :sale_items
   resources :expenses
   resources :products
   devise_for :users
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
-
-  # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
-  # Can be used by load balancers and uptime monitors to verify that the app is live.
+  resources :profits, only: [:index, :show] do
+    collection do
+      get 'sale', to: 'profits#profit_sales', as: 'sale'
+      get 'sale_per_item/:sale_id', to: 'profits#profit_sale_items', as: 'sale_per_item'
+    end
+  end
   get "up" => "rails/health#show", as: :rails_health_check
-
-  # Defines the root path route ("/")
-
   root to: "products#index"
 end

@@ -1,0 +1,42 @@
+<div class="container-fluid">
+  <div class="row">
+  <div class="text-center mt-4">
+    <h2>Profits on Sales</h2>
+  </div>
+
+    <div class="col mt-4">
+      <div class="table-responsive">
+        <table class="table product-table">
+          <thead class="bg-primary text-white">
+            <tr>
+              <th>Sale id</th>
+              <th>Date</th>
+              <th>Address</th>
+              <th>Total Amount</th>
+              <th>Total Recieved</th>
+              <th>Credit Recieved</th>
+              <th>Total Profit</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @sales.each do |sale| %>
+              <tr>
+                <td><%= sale.id %></td>
+                <td><%= sale.created_at.strftime("%m/%d/%Y") %></td>
+                <td><%= sale.customer_address %></td>
+                <td><%= sale.total_amount %></td>
+                <td><%= sale.total_received %></td>
+                <td><%= sale.credit_amount %></td>
+                <td><%= sale.total_received.to_i || 0 - sale.total_amount.to_i || 0 %></td>
+                <td class="text-center">
+                <%= link_to 'View details', sale_per_item_profits_path(sale_id: sale.id), class: 'btn btn-warning btn-sm' %>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
