@@ -3,7 +3,7 @@ class CreditsController < ApplicationController
 
   # GET /credits or /credits.json
   def index
-    @credits = Sale.all
+    @credits = Credit.all
   end
 
   # GET /credits/1 or /credits/1.json

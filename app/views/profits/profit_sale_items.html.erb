@@ -2,7 +2,7 @@
   <div class="row">
     <div class="text-center mt-4">
       <h2>View Sale Profit</h2>
-      <h5>Sale Id: <%= @sale.id %></h5>
+      <h5>Sale Id: S<%= @sale.id %></h5>
     </div>
     <div class="col-md-12">
       <% if @sale.id.present? %>
@@ -21,20 +21,22 @@
                           <th>Purchased Price per item</th>
                           <th>Selling Price per item</th>
                           <th>Profit Per Item</th>
+                          <th>Date</th>
                         </tr>
                       </thead>
                       <tbody>
                         <% @sale.sale_items.each do |sale_item| %>
                           <tr>
-                            <td><%= sale_item.id %></td>
+                            <td>SI<%= sale_item.id %></td>
                             <td><%= sale_item.product.name %></td>
                             <td><%= sale_item.quantity > 0 ? sale_item.quantity : 'Out of stock' %></td>
                             <td><%= sale_item.per_item_price %></td>
                             <td><%= sale_item.total_amount / sale_item.quantity rescue "N/A" %></td>
                             <% purchased_price_per_item = sale_item.per_item_price %>
                             <% selling_price_per_item = sale_item.total_amount / sale_item.quantity rescue "N/A" %>
-                            <% profit_per_item = selling_price_per_item - purchased_price_per_item rescue "N/A"%>
+                            <% profit_per_item = purchased_price_per_item - selling_price_per_item rescue "N/A"%>
                             <td><%= profit_per_item %></td>
+                            <td><%= sale_item.created_at.strftime("%m/%d/%Y") %></td>
                           </tr>
                         <% end %>
                       </tbody>

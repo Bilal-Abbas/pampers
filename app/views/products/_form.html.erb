@@ -17,35 +17,35 @@
         <div class="form-group row mb-3">
           <%= form.label :code, class: "col-md-4 col-form-label" %>
           <div class="col-md-8">
-            <%= form.text_field :code, class: "form-control" %>
+            <%= form.text_field :code, class: "form-control", required: true %>
           </div>
         </div>
 
         <div class="form-group row mb-3">
           <%= form.label :name, class: "col-md-4 col-form-label" %>
           <div class="col-md-8">
-            <%= form.text_field :name, class: "form-control" %>
+            <%= form.text_field :name, class: "form-control", required: true %>
           </div>
         </div>
 
         <div class="form-group row mb-3">
           <%= form.label :quantity, class: "col-md-4 col-form-label" %>
           <div class="col-md-8">
-            <%= form.number_field :quantity, class: "form-control" %>
+            <%= form.number_field :quantity, class: "form-control", required: true %>
           </div>
         </div>
 
         <div class="form-group row mb-3">
           <%= form.label :unit_price, class: "col-md-4 col-form-label" %>
           <div class="col-md-8">
-            <%= form.text_field :unit_price, class: "form-control" %>
+            <%= form.text_field :unit_price, class: "form-control", required: true %>
           </div>
         </div>
 
         <div class="form-group row mb-3">
           <%= form.label :description, class: "col-md-4 col-form-label" %>
           <div class="col-md-8">
-            <%= form.text_area :description, class: "form-control" %>
+            <%= form.text_area :description, class: "form-control", required: true %>
           </div>
         </div>
 

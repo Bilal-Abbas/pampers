@@ -1,6 +1,9 @@
 <div class="container-fluid">
   <div class="row">
     <div class="col mt-4">
+      <div class="float-right mb-3">
+        <input type="text" id="customer-search" class="form-control" placeholder="Search by Customer Name or ID">
+      </div>
       <div class="table-responsive">
         <table class="table product-table">
           <thead class="bg-primary text-white">
@@ -11,17 +14,25 @@
               <th>Total Recieved</th>
               <th>Credit Recieved</th>
               <th>Date</th>
+              <th></th>
+              <th></th>
             </tr>
           </thead>
           <tbody>
             <% @credits.each do |credit| %>
               <tr>
-                <td><%= credit.id %></td>
+                <td>S<%= credit.id %></td>
                 <td><%= credit.customer_name %></td>
                 <td><%= credit.total_amount %></td>
                 <td><%= credit.total_received %></td>
                 <td><%= credit.credit_amount %></td>
                 <td><%= credit.created_at.strftime("%m/%d/%Y") %></td>
+                <td class="text-center">
+                  <%= link_to 'Edit', edit_credit_path(credit), class: 'btn btn-warning btn-sm' %>
+                </td>
+                <td class="text-center">
+                  <%= link_to 'Delete', credit_path(credit), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-sm' %>
+                </td>
               </tr>
             <% end %>
           </tbody>
@@ -31,4 +42,26 @@
   </div>
 </div>
 
+<script>
+  $(document).ready(function() {
+    // Function to handle customer name and sale ID search
+    function searchCustomer() {
+      var searchTerm = $('#customer-search').val().toLowerCase();
+
+      // Loop through each row in the table body
+      $('.product-table tbody tr').each(function() {
+        var saleId = "S"+$(this).find('td:eq(0)').text().toLowerCase();
+        var customerName = $(this).find('td:eq(1)').text().toLowerCase();
+
+        // Show or hide the row based on the search term
+        $(this).toggle(saleId.includes(searchTerm) || customerName.includes(searchTerm));
+      });
+    }
+
+    // Attach the searchCustomer function to input change events
+    $('#customer-search').on('input', function() {
+      searchCustomer();
+    });
+  });
+</script>
 

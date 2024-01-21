@@ -25,7 +25,7 @@
           <tbody>
             <% @sales.each do |sale| %>
               <tr>
-                <td><%= sale.id %></td>
+                <td>S<%= sale.id %></td>
                 <td><%= sale.created_at.strftime("%m/%d/%Y") %></td>
                 <td><%= sale.customer_name %></td>
                 <td><%= sale.order_booker_name %></td>

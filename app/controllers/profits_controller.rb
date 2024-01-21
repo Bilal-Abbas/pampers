@@ -11,9 +11,10 @@ class ProfitsController < ApplicationController
       return
     end
 
-    @sales = Sale.where(created_at: start_date..end_date).where.not(total_amount: nil, total_received: nil, credit_amount: nil)
+    @sales = Sale.where(created_at: start_date.beginning_of_day..end_date.end_of_day).where.not(total_amount: nil, total_received: nil, credit_amount: nil)
     @total_sales = @sales.sum(:total_amount)
     @total_profit = @sales.sum { |sale| sale.total_received.to_i || 0 - sale.total_amount.to_i || 0 }
+    @total_expenses = Expense.where(created_at: start_date.beginning_of_day..end_date.end_of_day).sum(:amount)
     @total_credit_amount = @sales.sum(:credit_amount)
     @total_in_hand_amount = @total_sales - @total_credit_amount
   end
@@ -26,7 +27,7 @@ class ProfitsController < ApplicationController
       redirect_to profits_path
       return
     end
-    @sales = Sale.where(created_at: start_date..end_date).where.not(total_amount: nil, total_received: nil, credit_amount: nil)
+    @sales = Sale.where(created_at: start_date.beginning_of_day..end_date.end_of_day).where.not(total_amount: nil, total_received: nil, credit_amount: nil)
   end
 
   def profit_sale_items
