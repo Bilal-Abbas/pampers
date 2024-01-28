@@ -1,7 +1,7 @@
 # db/seeds.rb
 
 # Check if an admin user already exists
-unless User.count <= 0
+unless User.exists?(email: 'admin@pampers.pk')
     # Create an admin user
     admin_user = User.create!(
       email: 'admin@pampers.pk',
