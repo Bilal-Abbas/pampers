@@ -1,0 +1,145 @@
+<div class="container">
+  <%= form_with(model: sale) do |form| %>
+    <% if sale.errors.any? %>
+      <div style="color: red">
+        <h2><%= pluralize(sale.errors.count, "error") %> prohibited this sale from being saved:</h2>
+
+        <ul>
+          <% sale.errors.each do |error| %>
+            <li><%= error.full_message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="row">
+      <div class="col-md-12">
+        <div class="form-group row mb-3">
+          <%= form.label :customer_name, class: "col-md-4 col-form-label text-right" %>
+          <div class="col-md-2">
+            <%= form.text_field :customer_name, class: "form-control", required: true %>
+          </div>
+
+          <%= form.label :contact, class: "col-md-2 col-form-label text-right" %>
+          <div class="col-md-4">
+            <%= form.text_field :contact, class: "form-control", required: true %>
+          </div>
+        </div>
+
+        <div class="form-group row mb-3">
+          <%= form.label :customer_address, class: "col-md-4 col-form-label text-right" %>
+          <div class="col-md-2">
+            <%= form.text_field :customer_address, class: "form-control", required: true %>
+          </div>
+
+          <%= form.label :supplier_name, class: "col-md-2 col-form-label text-right" %>
+          <div class="col-md-4">
+            <%= form.text_field :supplier_name, class: "form-control", required: true %>
+          </div>
+        </div>
+
+        <div class="form-group row mb-3">
+          <%= form.label :order_booker_name, class: "col-md-4 col-form-label text-right" %>
+          <div class="col-md-2">
+            <%= form.text_field :order_booker_name, class: "form-control", required: true %>
+          </div>
+
+          <%= form.label :payment_method, class: "col-md-2 col-form-label text-right" %>
+          <div class="col-md-4">
+            <%= form.select :payment_method, ['cash', 'Bank Transfer', 'Easy Paisa / Jazz cash'], {}, class: "form-control", required: true %>
+          </div>
+        </div>
+
+
+    
+        <% if sale.id.present? %>
+          <div class="row">
+            <div class="col-md-10">
+              <%= render partial: "sale_items", locals: { sales_items: sale.sale_items } %>
+            </div>
+            <div class="col-md-2 mt-4">
+              <%= link_to "Insert sale item", new_sale_item_path(sale_id: sale.id), class: 'btn btn-primary' %>
+            </div>
+          </div>
+        <% end %>
+
+
+
+        <div class="row">
+          <div class="col-md-7">
+            <!-- Existing form fields -->
+          </div>
+          <div class="col-md-5">
+            <div class="form-group row mb-3">
+              <%= form.label :total_amount, class: "col-md-4 col-form-label text-right" %>
+              <div class="col-md-8">
+                <% if sale.sale_items.present? %>
+                  <%= form.number_field :total_amount, class: "form-control", value: sale.sale_items.sum(:total_amount), id: "total-amount" %>
+                <% else %>
+                  <%= form.number_field :total_amount, class: "form-control", id: "total-amount" %>
+                <% end %>
+              </div>
+            </div>
+
+            <div class="form-group row mb-3">
+              <%= form.label :total_received, class: "col-md-4 col-form-label text-right" %>
+              <div class="col-md-8">
+                <%= form.number_field :total_received, class: "form-control", id: "total-received" %>
+              </div>
+            </div>
+
+            <div class="form-group row mb-3">
+              <%= form.label :credit_amount, class: "col-md-4 col-form-label text-right" %>
+              <div class="col-md-8">
+                <%= form.number_field :credit_amount, class: "form-control", id: "credit-amount", disabled: true %>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <div class="col-md-8 offset-md-2 text-center">
+            <%= form.submit class: "btn btn-primary" %>
+            <%= link_to "Print and update", nil, class: 'btn btn-primary btn-print-and-update' %>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>
+
+<script>
+  $(document).ready(function() {
+    // Function to update credit amount on input change
+    function updateCreditAmount() {
+      var totalAmount = parseFloat($('#total-amount').val()) || 0;
+      var totalReceived = parseFloat($('#total-received').val()) || 0;
+      var creditAmount = totalAmount - totalReceived;
+      
+      // Display the credit amount
+      $('#credit-amount').val(creditAmount.toFixed(2));
+    }
+
+    // Attach the updateCreditAmount function to input change events
+    $('#total-amount, #total-received').on('input', function() {
+      updateCreditAmount();
+    });
+
+    // Initial calculation on page load
+    updateCreditAmount();
+
+    // Function to handle print and update button click
+    function printAndUpdate() {
+      // Trigger the print dialog
+      window.print();
+    }
+
+    // Attach the printAndUpdate function to the "Print and update" button click
+    $('.btn-print-and-update').on('click', function(event) {
+      event.preventDefault();
+      printAndUpdate();
+    });
+  });
+</script>
+
+

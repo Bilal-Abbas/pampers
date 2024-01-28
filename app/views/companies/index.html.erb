@@ -1,0 +1,39 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col mt-4">
+      <div class="d-flex justify-content-end mb-3">
+        <%= link_to "New Company", new_company_path, class: 'btn btn-primary' %>
+      </div>
+      <div class="table-responsive">
+        <table class="table company-table">
+          <thead class="bg-primary text-white">
+            <tr>
+              <th>Name</th>
+              <th>Account #</th>
+              <th>Date</th>
+              <th></th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <% # Loop through your companys and display each row in the table %>
+            <% @companies.each do |company| %>
+              <tr>
+                <td><%= company.name %></td>
+                <td><%= company.account %></td>
+                <td><%= company.created_at.strftime("%m/%d/%Y") %></td>
+                <td class="text-center">
+                  <%= link_to 'Edit', edit_company_path(company), class: 'btn btn-warning btn-sm' %>
+                </td>
+                <td class="text-center">
+                  <%= link_to 'Delete', company_path(company), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-sm' %>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+

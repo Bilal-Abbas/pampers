@@ -13,10 +13,12 @@ class SaleItemsController < ApplicationController
   # GET /sale_items/new
   def new
     @sale_item = SaleItem.new
+    @sale = Sale.find(params[:sale_id])
   end
 
   # GET /sale_items/1/edit
   def edit
+    @sale = SaleItem.find(params[:id]).sale
   end
 
   # POST /sale_items or /sale_items.json
@@ -62,7 +64,7 @@ class SaleItemsController < ApplicationController
     @sale_item.destroy!
 
     respond_to do |format|
-      format.html { redirect_to sale_items_url, notice: "Sale item was successfully destroyed." }
+      format.html { redirect_to edit_sale_url(@sale_item.sale), notice: "Sale item was successfully destroyed." }
       format.json { head :no_content }
     end
   end

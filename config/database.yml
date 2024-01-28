@@ -15,16 +15,10 @@
 default: &default
   adapter: postgresql
   encoding: unicode
-  pool: 5
-  username: root
-  password: postgres
-  host: localhost
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
 
 development:
   <<: *default
-  username: root
-  password: postgres
   database: pampers_development
 
   # The specified database role being used to connect to PostgreSQL.
@@ -83,6 +77,6 @@ test:
 #
 production:
   <<: *default
-  database: pampers_production
-  username: pampers
-  password: <%= ENV["PAMPERS_DATABASE_PASSWORD"] %>
+  database: <%= Rails.application.credentials[:DATABASE] %>
+  username: <%= Rails.application.credentials[:USERNAME] %>
+  password: <%= Rails.application.credentials[:PASSWORD] %>

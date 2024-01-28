@@ -15,7 +15,7 @@
         <div class="form-group row mb-3">
           <%= form.label :sale_id, class: "col-md-4 col-form-label text-right" %>
           <div class="col-md-2">
-            <%= form.text_field :sale_id, class: "form-control", disabled: true, value: Sale.find( params[:sale_id]).id if Sale.find( params[:sale_id]).present? %>
+            <%= form.text_field :sale_id, class: "form-control", disabled: true, value: @sale.id if @sale.present? %>
             <%= form.hidden_field :sale_id, value: params[:sale_id] %>
             </div>
           <%= form.label :product_id, class: "col-md-2 col-form-label text-right" %>

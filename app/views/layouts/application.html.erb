@@ -16,7 +16,7 @@
       <% if current_user %>
         <%= render partial: "shared/header" %>
         <div class="text-center mt-4"> <!-- Add margin-top for padding -->
-          <h1>Pampers Accounts</h1>
+          <h1><%= Company.first.name rescue "N/A" %></h1>
         </div>
         <%= render partial: "shared/tabs" %>
       <% end %>

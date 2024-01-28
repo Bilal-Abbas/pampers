@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :companies
   resources :credits
   resources :sales do
     post 'add_products_to_sale', on: :member

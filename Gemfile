@@ -75,3 +75,5 @@ gem "sassc-rails"
 gem 'pry'
 
 gem 'rolify'
+
+gem 'carrierwave', '~> 3.0'

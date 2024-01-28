@@ -1,2 +1,32 @@
 <div id="<%= dom_id sale_item %>">
+  <p>
+    <strong>Sale ID:</strong>
+    <%= sale_item.sale.id %>
+  </p>
+
+  <p>
+    <strong>Product Name:</strong>
+    <%= sale_item.product.name %>
+  </p>
+
+  <p>
+    <strong>Quantity:</strong>
+    <%= sale_item.quantity %>
+  </p>
+
+  <p>
+    <strong>Per Item Price</strong>
+    <%= sale_item.per_item_price %>
+  </p>
+
+  <p>
+    <strong>Discount:</strong>
+    <%= sale_item.discount %>
+  </p>
+
+  <p>
+    <strong>Total Amount:</strong>
+    <%= sale_item.total_amount %>
+  </p>
 </div>
+

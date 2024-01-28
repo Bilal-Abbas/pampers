@@ -24,4 +24,14 @@
     <%= product.description %>
   </p>
 
+  <div class="row mt-4">
+    <div class="col-md-6 text-center">
+      <% if product.image? %>
+        <%= image_tag @product.image.url, class: "img-fluid", alt: @product.name %>
+      <% else %>
+        <p>No image available.</p>
+      <% end %>
+    </div>
+  </div>
+
 </div>

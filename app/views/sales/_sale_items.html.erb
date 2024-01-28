@@ -1,33 +1,40 @@
-<div class="container-fluid">
-  <div class="row">
-    <div class="col mt-4">
-      <div class="table-responsive">
-        <table class="table product-table">
-          <thead class="bg-primary text-white">
-            <tr>
-              <th>Serial No.</th>
-              <th>Product Name</th>
-              <th>Quantity</th>
-              <th>Per Item Price</th>
-              <th>Discount %</th>
-              <th>Total Amount</th>
+<div style="width: 100%; margin-top: 1.4rem;padding-right: 1%;">
+  <div style="margin: 0 auto;">
+    <div style="overflow-x: auto;">
+      <table style="width: 100%; border-collapse: collapse;border: solid 1px #5b9bd5 !important;">
+        <thead style="background-color: #8faadc !important;border: solid 1px #8faadc !important;">
+          <tr style="border: 1px #5b9bd5 solid;">
+            <th style="padding: 10px; border: 1px solid inherit;background-color:#5b9bd5 !important;color: #ffffff !important;">Serial No.</th>
+            <th style="padding: 10px; border: 1px solid inherit;background-color:#5b9bd5 !important;color: #ffffff !important;">Product Name</th>
+            <th style="padding: 10px; border: 1px solid inherit;background-color:#5b9bd5 !important;color: #ffffff !important;">Quantity</th>
+            <th style="padding: 10px; border: 1px solid inherit;background-color:#5b9bd5 !important;color: #ffffff !important;">Per Item Price</th>
+            <th style="padding: 10px; border: 1px solid inherit;background-color:#5b9bd5 !important;color: #ffffff !important;">Discount %</th>
+            <th style="padding: 10px; border: 1px solid inherit;background-color:#5b9bd5 !important;color: #ffffff !important;">Total Amount</th>
+            <th style="padding: 10px; border: 1px solid inherit;background-color:#5b9bd5 !important;color: #ffffff !important;" class="buttonRows"></th>
+            <th style="padding: 10px; border: 1px solid inherit;background-color:#5b9bd5 !important;color: #ffffff !important;" class="buttonRows"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% sales_items.each do |sale_item| %>
+            <tr style="border: 1px #5b9bd5 solid;">
+              <td style="padding: 10px; border: 1px solid inherit;"><%= sale_item.id %></td>
+              <td style="padding: 10px; border: 1px solid inherit;"><%= sale_item.product.id %></td>
+              <td style="padding: 10px; border: 1px solid inherit;"><%= sale_item.quantity > 0 ? sale_item.quantity : 'Out of stock' %></td>
+              <td style="padding: 10px; border: 1px solid inherit;"><%= sale_item.per_item_price %></td>
+              <td style="padding: 10px; border: 1px solid inherit;"><%= sale_item.discount %></td>
+              <td style="padding: 10px; border: 1px solid inherit;"><%= sale_item.total_amount %></td>
+              <td style="padding: 10px; text-align: center; border: 1px solid inherit;" class="buttonRows">
+                <%= link_to 'Edit', edit_sale_item_path(sale_item), style: 'padding: 5px 10px; background-color: #ffc107; color: #212529; border: none; text-decoration: none;' %>
+              </td>
+              <td style="padding: 10px; text-align: center; border: 1px solid inherit;" class="buttonRows">
+                <%= link_to 'Delete', sale_item_path(sale_item), method: :delete, data: { confirm: 'Are you sure?' }, style: 'padding: 5px 10px; background-color: #dc3545; color: #fff; border: none; text-decoration: none;' %>
+              </td>
             </tr>
-          </thead>
-          <tbody>
-            <% sales_items.each do |sale_item| %>
-              <tr>
-                <td><%= sale_item.id %></td>
-                <td><%= sale_item.product.id %></td>
-                <td> <%= sale_item.quantity > 0 ? sale_item.quantity : 'Out of stock' %></td>
-                <td><%= sale_item.per_item_price %></td>
-                <td><%= sale_item.discount %></td>
-                <td><%= sale_item.total_amount %></td>
-              </tr>
-            <% end %>
-          </tbody>
-        </table>
-      </div>
+          <% end %>
+        </tbody>
+      </table>
     </div>
   </div>
 </div>
+
 

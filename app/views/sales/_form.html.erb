@@ -1,10 +1,15 @@
-<div class="container">
-  <%= form_with(model: sale) do |form| %>
+<div style="margin: 15px;">
+  <%= form_with(model: sale, html: { id: 'salesForm' }) do |form| %>
+    <h1 style="text-align:center; display: none;" id="printSaleTitle"><%= Company.first.name rescue "N/A" %></h1>
+    <div style="overflow: hidden;">
+        <p style="float: left; width: 50%;display: none;" id="printSaleId">Sale Id: <b>S01</b></p>
+        <b><span style="float: right; text-align: center; width: 50%;display: none;" id="printCompanyId">Bank Account # <%= Company.first.account rescue "N/A" %></span></b>
+    </div>
     <% if sale.errors.any? %>
-      <div style="color: red">
-        <h2><%= pluralize(sale.errors.count, "error") %> prohibited this sale from being saved:</h2>
+      <div style="color: red; margin-bottom: 15px;">
+        <h2 style="margin: 0;"><%= pluralize(sale.errors.count, "error") %> prohibited this sale from being saved:</h2>
 
-        <ul>
+        <ul style="list-style-type: none; padding: 0;">
           <% sale.errors.each do |error| %>
             <li><%= error.full_message %></li>
           <% end %>
@@ -12,101 +17,97 @@
       </div>
     <% end %>
 
-    <div class="row">
-      <div class="col-md-12">
-        <div class="form-group row mb-3">
-          <%= form.label :customer_name, class: "col-md-4 col-form-label text-right" %>
-          <div class="col-md-2">
-            <%= form.text_field :customer_name, class: "form-control", required: true %>
-          </div>
+    <div style="display: flex; flex-wrap: wrap; margin-bottom: 15px;">
+      <div style="width: calc(50% - 5px); display: flex; flex-direction: row; align-items: center;">
+        <label style="display: block; margin-right: 10px; margin-bottom: 5px;width: 25%;">Customer Name</label>
+        <%= form.text_field :customer_name, class: "form-control", required: true, style: "flex: 1; width: 100%;margin-right: 10%;" %>
+      </div>
 
-          <%= form.label :contact, class: "col-md-2 col-form-label text-right" %>
-          <div class="col-md-4">
-            <%= form.text_field :contact, class: "form-control", required: true %>
-          </div>
+      <div style="width: calc(50% - 5px); display: flex; flex-direction: row; align-items: center;">
+        <label style="display: block; margin-right: 10px; margin-bottom: 5px;width: 25%;">Contact</label>
+        <%= form.text_field :contact, class: "form-control", required: true, style: "flex: 1; width: 100%;margin-right: 10%;" %>
+      </div>
+    </div>
+
+
+
+    <div style="display: flex; flex-wrap: wrap; margin-bottom: 15px;">
+      <div style="width: calc(50% - 5px); display: flex; flex-direction: row; align-items: center;">
+        <label style="display: block; margin-right: 10px; margin-bottom: 5px;width: 25%;">Customer Address</label>
+        <%= form.text_field :customer_address, class: "form-control", required: true, style: "flex: 1; width: 100%;margin-right: 10%;" %>
+      </div>
+
+      <div style="width: calc(50% - 5px); display: flex; flex-direction: row; align-items: center;">
+        <label style="display: block; margin-right: 10px; margin-bottom: 5px;width: 25%;">Supplier Name</label>
+        <%= form.text_field :supplier_name, class: "form-control", required: true, style: "flex: 1; width: 100%;margin-right: 10%;" %>
+      </div>
+    </div>
+
+    <div style="display: flex; flex-wrap: wrap; margin-bottom: 15px;">
+      <div style="width: calc(50% - 5px); display: flex; flex-direction: row; align-items: center;">
+        <label style="display: block; margin-right: 10px; margin-bottom: 5px;width: 25%;">Order Booker Name</label>
+        <%= form.text_field :order_booker_name, class: "form-control", required: true, style: "flex: 1; width: 100%;margin-right: 10%;" %>
+      </div>
+
+      <div style="width: calc(50% - 5px); display: flex; flex-direction: row; align-items: center;">
+        <label style="display: block; margin-right: 10px; margin-bottom: 5px;width: 25%;">Payment Method</label>
+        <%= form.select :payment_method, ['cash', 'Bank Transfer', 'Easy Paisa / Jazz cash'], {}, class: "form-control", required: true, style: "flex: 1; width: 100%;margin-right: 10%;" %>
+      </div>
+    </div>
+
+    <% if sale.id.present? %>
+      <div style="display: flex;">
+        <div style="flex: 1;" id="sales_item_render">
+          <%= render partial: "sale_items", locals: { sales_items: sale.sale_items } %>
+        </div>
+        <div style="flex: 0 0 16.6667%; margin-top: 1.4rem;" id="insertSaleBtn">
+          <%= link_to "Insert sale item", new_sale_item_path(sale_id: sale.id), class: 'btn btn-primary' %>
+        </div>
+      </div>
+    <% end %>
+
+    <div style="display: flex; margin-bottom: 15px;">
+      <div style="flex: 1 1 70%;">
+        <!-- Existing form fields -->
+      </div>
+      <div style="flex: 1 1 30%;margin-top: 3%;">
+        <div style="margin-bottom: 15px;">
+          <label>Total Amount</label>
+          <% if sale.sale_items.present? %>
+            <%= form.number_field :total_amount, class: "form-control", value: sale.sale_items.sum(:total_amount), id: "total-amount", style: "width: 100%;" %>
+          <% else %>
+            <%= form.number_field :total_amount, class: "form-control", id: "total-amount", style: "width: 100%;" %>
+          <% end %>
         </div>
 
-        <div class="form-group row mb-3">
-          <%= form.label :customer_address, class: "col-md-4 col-form-label text-right" %>
-          <div class="col-md-2">
-            <%= form.text_field :customer_address, class: "form-control", required: true %>
-          </div>
-
-          <%= form.label :supplier_name, class: "col-md-2 col-form-label text-right" %>
-          <div class="col-md-4">
-            <%= form.text_field :supplier_name, class: "form-control", required: true %>
-          </div>
+        <div style="margin-bottom: 15px;">
+          <label>Total Received</label>
+          <%= form.number_field :total_received, class: "form-control", id: "total-received", style: "width: 100%;" %>
         </div>
 
-        <div class="form-group row mb-3">
-          <%= form.label :order_booker_name, class: "col-md-4 col-form-label text-right" %>
-          <div class="col-md-2">
-            <%= form.text_field :order_booker_name, class: "form-control", required: true %>
-          </div>
-
-          <%= form.label :payment_method, class: "col-md-2 col-form-label text-right" %>
-          <div class="col-md-4">
-            <%= form.select :payment_method, ['cash', 'Bank Transfer', 'Easy Paisa / Jazz cash'], {}, class: "form-control", required: true %>
-          </div>
-        </div>
-
-
-    
-        <% if sale.id.present? %>
-          <div class="row">
-            <div class="col-md-10">
-              <%= render partial: "sale_items", locals: { sales_items: sale.sale_items } %>
-            </div>
-            <div class="col-md-2 mt-4">
-              <%= link_to "Insert sale item", new_sale_item_path(sale_id: sale.id), class: 'btn btn-primary' %>
-            </div>
-          </div>
-        <% end %>
-
-
-
-        <div class="row">
-          <div class="col-md-7">
-            <!-- Existing form fields -->
-          </div>
-          <div class="col-md-5">
-            <div class="form-group row mb-3">
-              <%= form.label :total_amount, class: "col-md-4 col-form-label text-right" %>
-              <div class="col-md-8">
-                <% if sale.sale_items.present? %>
-                  <%= form.number_field :total_amount, class: "form-control", value: sale.sale_items.sum(:total_amount), id: "total-amount" %>
-                <% else %>
-                  <%= form.number_field :total_amount, class: "form-control", id: "total-amount" %>
-                <% end %>
-              </div>
-            </div>
-
-            <div class="form-group row mb-3">
-              <%= form.label :total_received, class: "col-md-4 col-form-label text-right" %>
-              <div class="col-md-8">
-                <%= form.number_field :total_received, class: "form-control", id: "total-received" %>
-              </div>
-            </div>
-
-            <div class="form-group row mb-3">
-              <%= form.label :credit_amount, class: "col-md-4 col-form-label text-right" %>
-              <div class="col-md-8">
-                <%= form.number_field :credit_amount, class: "form-control", id: "credit-amount", disabled: true %>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="form-group row">
-          <div class="col-md-8 offset-md-2 text-center">
-            <%= form.submit class: "btn btn-primary" %>
-            <%= link_to "Print and update", nil, class: 'btn btn-primary btn-print-and-update' %>
-          </div>
+        <div style="margin-bottom: 15px;">
+          <label>Credit Amount</label>
+          <%= form.number_field :credit_amount, class: "form-control", id: "credit-amount", disabled: true, style: "width: 100%;" %>
         </div>
       </div>
     </div>
+
+    <div style="text-align: center; margin-top: 15px;">
+      <%= form.submit class: "btn btn-primary", style: "margin-right: 10px;", id: "salesFormSubmit" %>
+      <% if action_name != "new" %>
+        <%= link_to "Print and update", nil, class: 'btn btn-primary btn-print-and-update', style: "margin-left: 10px;", id: "salesPrintBtn" %>
+      <% end %>
+    </div>
+
+    <div style="overflow: hidden;">
+        <p style="float: left; width: 33%;text-align:center;margin-top:250px;display:none;" class="printFooterText">Warehouse Manager</p>
+        <p style="float: left; width: 33%;text-align:center;margin-top:250px;display:none;" class="printFooterText">Supplier</p>
+        <p style="float: left; width: 33%;text-align:center;margin-top:250px;display:none;" class="printFooterText">Reciever</p>
+    </div>
+
   <% end %>
 </div>
+
 
 <script>
   $(document).ready(function() {
